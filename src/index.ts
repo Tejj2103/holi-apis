@@ -3,7 +3,7 @@ import { cors } from "@elysiajs/cors";
 import swagger from "@elysiajs/swagger";
 import { Elysia } from "elysia";
 import { ip } from "elysia-ip";
-// import { rateLimit } from "elysia-rate-limit";
+import { rateLimit } from "elysia-rate-limit";
 import { bookingRouter } from "./router/booking";
 import { favoriteRouter } from "./router/favorite";
 import { propertyRouter } from "./router/property";
@@ -21,13 +21,13 @@ const app = new Elysia()
   )
 
   .use(logger())
-  .use(ip({ checkHeaders: ["x-forwarded-for", "x-real-ip"] }))
-  // .use(
-  //   rateLimit({
-  //     max: 100, // requests
-  //     duration: 60000, // per minute
-  //   })
-  // )
+  .use(ip())
+  .use(
+    rateLimit({
+      max: 100, // requests
+      duration: 60000, // per minute
+    })
+  )
   .use(
     swagger({
       path: "/swagger",
