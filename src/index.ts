@@ -21,7 +21,7 @@ const app = new Elysia()
   )
 
   .use(logger())
-  .use(ip())
+  .use(ip({ checkHeaders: ["x-forwarded-for", "x-real-ip"] }))
   .use(
     rateLimit({
       max: 100, // requests
