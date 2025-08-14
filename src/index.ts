@@ -42,6 +42,8 @@ const app = new Elysia()
   // Health check route
   .listen(process.env.PORT || 3000);
 
+console.log('process', process.env.JWT_SECRET);
+console.log('process', process.env);
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
 );
