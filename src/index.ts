@@ -26,7 +26,6 @@ const app = new Elysia()
     rateLimit({
       max: 100, // requests
       duration: 60000, // per minute
-      getIP: (req: any) => req.headers.get('x-forwarded-for') || req.requestIP()
     })
   )
   .use(
