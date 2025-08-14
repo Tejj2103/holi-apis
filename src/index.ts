@@ -73,6 +73,11 @@ app.onError(({ code, error, set }) => {
   }
 });
 
+app.onRequest(({ request }) => {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
+    console.log('Client IP:', ip);
+});
+
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
