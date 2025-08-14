@@ -23,12 +23,6 @@ const app = new Elysia()
   .use(logger())
   .use(ip())
   .use(
-    rateLimit({
-      max: 100, // requests
-      duration: 60000, // per minute
-    })
-  )
-  .use(
     swagger({
       path: "/swagger",
     })
