@@ -26,6 +26,7 @@ const app = new Elysia()
     rateLimit({
       max: 100, // requests
       duration: 60000, // per minute
+      getIP: (req: any) => req.headers.get('x-forwarded-for') || req.requestIP()
     })
   )
   .use(
@@ -71,11 +72,6 @@ app.onError(({ code, error, set }) => {
       set.status = 500;
       return { error: "Internal server error" };
   }
-});
-
-app.onRequest(({ request }) => {
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim();
-    console.log('Client IP:', ip);
 });
 
 declare global {
