@@ -71,12 +71,12 @@ export const bookingRouter = new Elysia()
           name: user.name,
           email: user.email,
         });
-
+        console.log('custoer', customer);
         const ephemeralKey = await stripe.ephemeralKeys.create(
           { customer: customer.id },
           { apiVersion: "2024-11-20.acacia" }
         );
-
+        console.log('ephemeralKey', ephemeralKey);
         const paymentIntent = await stripe.paymentIntents.create({
           amount: Math.round(total_price * 100),
           currency: "inr",
@@ -88,7 +88,7 @@ export const bookingRouter = new Elysia()
             nights: nights.toString(),
           },
         });
-
+        console.log('paymentIntent', paymentIntent);
         const booking = await db.booking.create({
           data: {
             property_id: body.property_id,
